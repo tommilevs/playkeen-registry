@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {gzipSync} from 'node:zlib';
 
 test('indexes curated upstream opkg release with its verified asset digest',async()=>{
   const script=pathToFileURL(path.resolve('scripts/build-registry.mjs')).href;
@@ -15,6 +16,7 @@ test('indexes curated upstream opkg release with its verified asset digest',asyn
     await fs.writeFile(path.join(tmp,'registry','adapters.json'),JSON.stringify({schema:'playkeen/adapters-v1',apps:[{id:'keenplay-s-ui',repository:'tommilevs/keenplay-adapters',manifest_path:'apps/keenplay-s-ui/playkeen.yaml',architectures:['arm64'],description:'S-UI migration adapter'}]}));
     globalThis.fetch=async url=>{
       const target=String(url);
+      if(target.endsWith('/Packages.gz')){const bytes=gzipSync('Package: nfqws2-keenetic\nVersion: 1.3.2-1\nArchitecture: aarch64-3.10\nFilename: nfqws2-keenetic_1.3.2-1_aarch64.ipk\nSection: net\nDescription: Curated package\n\nPackage: curl\nVersion: 8.1-1\nArchitecture: aarch64-3.10\nFilename: curl_8.1-1_aarch64.ipk\nSection: net\nDescription: Transfer URLs\n');return {ok:true,arrayBuffer:async()=>bytes};}
       if(target.includes('/search/repositories'))return {ok:true,json:async()=>({items:[]})};
       if(target.includes('/repos/nfqws/nfqws2-keenetic/releases'))return {ok:true,json:async()=>[{draft:false,prerelease:false,tag_name:'v1.3.2',html_url:'https://github.com/nfqws/nfqws2-keenetic/releases/tag/v1.3.2',assets:[{name:'nfqws2-keenetic_1.3.2_all_entware.ipk',browser_download_url:'https://github.com/nfqws/nfqws2-keenetic/releases/download/v1.3.2/nfqws2-keenetic_1.3.2_all_entware.ipk',digest:`sha256:${'a'.repeat(64)}`}]}]};
       if(target.includes('/tommilevs/keenplay-adapters/main/apps/keenplay-s-ui/playkeen.yaml'))return {ok:true,text:async()=>'schema: playkeen/v1\nid: keenplay-s-ui\nname: S-UI for Keenetic\nversion: 1.6.6\ntype: hybrid\narchitectures: [arm64]\n'};
@@ -34,5 +36,10 @@ test('indexes curated upstream opkg release with its verified asset digest',asyn
     assert.equal(sui.version,'1.6.6');
     assert.equal(sui.sha256,'b'.repeat(64));
     assert.match(sui.package_url,/keenplay-s-ui-1\.6\.6\.tar\.gz$/);
+    assert.equal(result.opkg_feeds.length,8);
+    const feed=JSON.parse(await fs.readFile(path.join(tmp,'registry','entware','aarch64-k3.10.json'),'utf8'));
+    assert.equal(feed.packages.length,2);
+    assert.equal(feed.packages.find(x=>x.package_name==='nfqws2-keenetic').verified,true);
+    assert.equal(feed.packages.find(x=>x.package_name==='curl').verified,false);
   } finally {process.chdir(originalCwd);globalThis.fetch=originalFetch;await fs.rm(tmp,{recursive:true,force:true});}
 });

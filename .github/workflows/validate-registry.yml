@@ -16,8 +16,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: 22}
-      - run: node --test test/curated.test.mjs
-      - run: node -e "const j=JSON.parse(require('fs').readFileSync('registry/index.json')); if(j.schema!=='playkeen/registry-v1'||!Array.isArray(j.apps)) process.exit(1)"
+      - run: node --test test/curated.test.mjs test/entware-feed.test.mjs
+      - run: node -e "const j=JSON.parse(require('fs').readFileSync('registry/index.json')); if(j.schema!=='playkeen/registry-v1'||!Array.isArray(j.apps)||!Array.isArray(j.opkg_feeds)) process.exit(1)"
+      - run: node -e "const fs=require('fs'),j=JSON.parse(fs.readFileSync('registry/index.json')); for(const f of j.opkg_feeds){const x=JSON.parse(fs.readFileSync('registry/entware/'+f.feed+'.json'));if(x.schema!=='playkeen/entware-feed-v1'||x.feed!==f.feed||x.packages.length!==f.count)throw Error('Invalid feed '+f.feed)}"
 
   refresh:
     if: github.event_name != 'pull_request'
@@ -38,6 +39,6 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
           cp "$RUNNER_TEMP/index.json" registry/index.json
-          git add registry/index.json
+          git add registry/index.json registry/entware
           git diff --cached --quiet || git commit -m "chore: refresh application registry"
           git push origin HEAD:main

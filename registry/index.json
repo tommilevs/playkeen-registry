@@ -1,6 +1,6 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T15:00:50.576Z",
+  "generated_at": "2026-10-27T16:11:41.866Z",
   "apps": [
     {
       "id": "keenplay-3x-ui",
@@ -65,6 +65,8 @@
       "name": "NFQWS Web UI for Keenetic",
       "version": "3.0.24",
       "type": "opkg",
+      "source": "github-curated",
+      "verified": true,
       "package_name": "nfqws-keenetic-web",
       "repository": "https://github.com/nfqws/nfqws-keenetic-web",
       "release": "v3.0.24",
@@ -90,6 +92,8 @@
       "name": "NFQWS2 for Keenetic",
       "version": "1.3.2",
       "type": "opkg",
+      "source": "github-curated",
+      "verified": true,
       "package_name": "nfqws2-keenetic",
       "repository": "https://github.com/nfqws/nfqws2-keenetic",
       "release": "v1.3.2",
@@ -109,6 +113,56 @@
       ],
       "description": "Official NFQWS2 Entware package for Keenetic and compatible routers",
       "terminal": null
+    }
+  ],
+  "opkg_feeds": [
+    {
+      "feed": "aarch64-k3.10",
+      "architecture": "arm64",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/aarch64-k3.10.json",
+      "count": 2886
+    },
+    {
+      "feed": "armv5sf-k3.2",
+      "architecture": "arm",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv5sf-k3.2.json",
+      "count": 2810
+    },
+    {
+      "feed": "armv7sf-k2.6",
+      "architecture": "armv7-k2.6",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv7sf-k2.6.json",
+      "count": 2831
+    },
+    {
+      "feed": "armv7sf-k3.2",
+      "architecture": "armv7-k3.2",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv7sf-k3.2.json",
+      "count": 2949
+    },
+    {
+      "feed": "mipselsf-k3.4",
+      "architecture": "mipsel",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/mipselsf-k3.4.json",
+      "count": 2883
+    },
+    {
+      "feed": "mipssf-k3.4",
+      "architecture": "mips",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/mipssf-k3.4.json",
+      "count": 2882
+    },
+    {
+      "feed": "x64-k3.2",
+      "architecture": "amd64",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/x64-k3.2.json",
+      "count": 2886
+    },
+    {
+      "feed": "x86-k2.6",
+      "architecture": "x86",
+      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/x86-k2.6.json",
+      "count": 2793
     }
   ]
 }

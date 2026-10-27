@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import {ENTWARE_FEEDS,loadEntwarePackages,markVerified} from './entware-feed.mjs';
 
 const token = process.env.GITHUB_TOKEN;
 const headers = {'User-Agent':'playkeen-registry-bot','Accept':'application/vnd.github+json'};
@@ -43,7 +44,7 @@ for(const item of curated.apps){
   const asset=release?.assets?.find(x=>x.name.endsWith(item.asset_suffix));
   const sha256=asset?.digest?.match(/^sha256:([a-f0-9]{64})$/i)?.[1]?.toLowerCase();
   if(!release||!asset||!sha256||!asset.browser_download_url?.startsWith(`https://github.com/${item.repository}/releases/download/`))throw new Error(`No verified release asset for ${item.id}`);
-  apps.push({id:item.id,name:item.name,version:release.tag_name.replace(/^v/i,''),type:'opkg',package_name:item.package_name,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures:item.architectures,description:item.description||'',terminal:null});
+  apps.push({id:item.id,name:item.name,version:release.tag_name.replace(/^v/i,''),type:'opkg',source:'github-curated',verified:true,package_name:item.package_name,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures:item.architectures,description:item.description||'',terminal:null});
 }
 const adapters=JSON.parse(await fs.readFile('registry/adapters.json','utf8').catch(()=>'{"schema":"playkeen/adapters-v1","apps":[]}'));
 if(adapters.schema!=='playkeen/adapters-v1'||!Array.isArray(adapters.apps))throw new Error('Invalid adapter catalog');
@@ -69,5 +70,14 @@ for(const item of adapters.apps){
   apps.push({id,name,version,type,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures,description:item.description||'',terminal:null});
 }
 apps.sort((a,b)=>a.id.localeCompare(b.id));
-await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:new Date().toISOString(),apps},null,2)+'\n');
-console.log(`indexed ${apps.length} applications`);
+const opkgPackages=markVerified(await loadEntwarePackages(),curated.apps);
+const generatedAt=new Date().toISOString();
+await fs.mkdir('registry/entware',{recursive:true});
+const opkgFeeds=[];
+for(const [feed,architecture] of ENTWARE_FEEDS){
+  const packages=opkgPackages.filter(pkg=>pkg.feed===feed).sort((a,b)=>a.name.localeCompare(b.name));
+  await fs.writeFile(`registry/entware/${feed}.json`,JSON.stringify({schema:'playkeen/entware-feed-v1',generated_at:generatedAt,feed,packages},null,2)+'\n');
+  opkgFeeds.push({feed,architecture,url:`https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/${feed}.json`,count:packages.length});
+}
+await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:generatedAt,apps,opkg_feeds:opkgFeeds},null,2)+'\n');
+console.log(`indexed ${apps.length} applications and ${opkgPackages.length} Entware packages in ${opkgFeeds.length} feeds`);
