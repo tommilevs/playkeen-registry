@@ -17,6 +17,7 @@ for(const repo of repos){
     const text=await manifestResponse.text();
     const id=(text.match(/^id:\s*([^\s#]+)/m)||[])[1];
     const name=(text.match(/^name:\s*(.+)$/m)||[])[1]?.trim();
+    const version=(text.match(/^version:\s*([^\s#]+)/m)||[])[1]||release.tag_name;
     const type=(text.match(/^type:\s*(\S+)/m)||[])[1]||'bash';
     const packageName=(text.match(/^package_name:\s*(\S+)/m)||[])[1]||null;
     const architectures=(text.match(/^architectures:\s*\[([^\]]+)\]/m)||[])[1]?.split(',').map(x=>x.trim())||[];
@@ -29,7 +30,7 @@ for(const repo of repos){
       sha256=(checksumText.match(/[a-f0-9]{64}/i)||[])[0]?.toLowerCase();
     }
     const terminalEnabled=/^\s+enabled:\s*true\s*$/m.test(text) && /^terminal:\s*$/m.test(text);
-    apps.push({id,name,type,package_name:packageName,repository:repo.html_url,release:release.tag_name,release_url:release.html_url,package_url:archive?.browser_download_url||null,sha256:sha256||null,architectures,description:repo.description||'',terminal:terminalEnabled?{enabled:true,provider:(text.match(/^\s+provider:\s*(\S+)/m)||[])[1]||'ttyd'}:null});
+    apps.push({id,name,version,type,package_name:packageName,repository:repo.html_url,release:release.tag_name,release_url:release.html_url,package_url:archive?.browser_download_url||null,sha256:sha256||null,architectures,description:repo.description||'',terminal:terminalEnabled?{enabled:true,provider:(text.match(/^\s+provider:\s*(\S+)/m)||[])[1]||'ttyd'}:null});
   } catch (error) { console.error(`skip ${repo.full_name}: ${error.message}`); }
 }
 apps.sort((a,b)=>a.id.localeCompare(b.id));
