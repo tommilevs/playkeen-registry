@@ -1,6 +1,6 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T14:06:40.533Z",
+  "generated_at": "2026-10-27T14:09:07.287Z",
   "apps": [
     {
       "id": "keenplay-3x-ui",
@@ -83,6 +83,31 @@
         "x86_64"
       ],
       "description": "Official NFQWS2 Entware package for Keenetic and compatible routers",
+      "terminal": null
+    },
+    {
+      "id": "nfqws-keenetic-web",
+      "name": "NFQWS Web UI for Keenetic",
+      "version": "3.0.24",
+      "type": "opkg",
+      "package_name": "nfqws-keenetic-web",
+      "repository": "https://github.com/nfqws/nfqws-keenetic-web",
+      "release": "v3.0.24",
+      "release_url": "https://github.com/nfqws/nfqws-keenetic-web/releases/tag/v3.0.24",
+      "package_url": "https://github.com/nfqws/nfqws-keenetic-web/releases/download/v3.0.24/nfqws-keenetic-web_3.0.24_all_entware.ipk",
+      "sha256": "767b7003db0057d1d46513dcdd6c8c87dc666732a2f7b8c6d756b15cd7900565",
+      "architectures": [
+        "arm64",
+        "arm",
+        "armv7",
+        "amd64",
+        "mips",
+        "mipsel",
+        "mips64",
+        "x86",
+        "x86_64"
+      ],
+      "description": "Official web interface for nfqws and nfqws2 on Entware routers",
       "terminal": null
     }
   ]
