@@ -1,14 +1,14 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T09:10:57.286Z",
+  "generated_at": "2026-10-27T09:17:57.518Z",
   "apps": [
     {
       "id": "keenplay-demo",
       "name": "KeenPlay Demo",
       "repository": "https://github.com/tommilevs/keenplay-demo",
-      "release": "v0.1.0",
-      "release_url": "https://github.com/tommilevs/keenplay-demo/releases/tag/v0.1.0",
-      "package_url": "https://github.com/tommilevs/keenplay-demo/releases/download/v0.1.0/keenplay-demo-v0.1.0.tar.gz",
+      "release": "v0.1.1",
+      "release_url": "https://github.com/tommilevs/keenplay-demo/releases/tag/v0.1.1",
+      "package_url": "https://github.com/tommilevs/keenplay-demo/releases/download/v0.1.1/keenplay-demo-v0.1.0.tar.gz",
       "sha256": "80b5ed34a5c610c892e1e86537eea881d435edd7a6332aa10f0db0e5967d1922",
       "architectures": [
         "arm64",
