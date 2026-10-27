@@ -45,6 +45,29 @@ for(const item of curated.apps){
   if(!release||!asset||!sha256||!asset.browser_download_url?.startsWith(`https://github.com/${item.repository}/releases/download/`))throw new Error(`No verified release asset for ${item.id}`);
   apps.push({id:item.id,name:item.name,version:release.tag_name.replace(/^v/i,''),type:'opkg',package_name:item.package_name,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures:item.architectures,description:item.description||'',terminal:null});
 }
+const adapters=JSON.parse(await fs.readFile('registry/adapters.json','utf8').catch(()=>'{"schema":"playkeen/adapters-v1","apps":[]}'));
+if(adapters.schema!=='playkeen/adapters-v1'||!Array.isArray(adapters.apps))throw new Error('Invalid adapter catalog');
+for(const item of adapters.apps){
+  if(!/^[a-z0-9][a-z0-9._-]*$/.test(item.id)||!/^[\w.-]+\/[\w.-]+$/.test(item.repository)||!/^apps\/[\w./-]+\/playkeen\.yaml$/.test(item.manifest_path)||!Array.isArray(item.architectures)||!item.architectures.length)throw new Error(`Invalid adapter: ${item.id}`);
+  const manifestResponse=await fetch(`https://raw.githubusercontent.com/${item.repository}/main/${item.manifest_path}`,{headers});
+  if(!manifestResponse.ok)throw new Error(`Adapter manifest unavailable: ${item.id}`);
+  const text=await manifestResponse.text();
+  const id=(text.match(/^id:\s*([^\s#]+)/m)||[])[1];
+  const name=(text.match(/^name:\s*(.+)$/m)||[])[1]?.trim();
+  const version=(text.match(/^version:\s*([^\s#]+)/m)||[])[1];
+  const type=(text.match(/^type:\s*(\S+)/m)||[])[1]||'hybrid';
+  const architectures=(text.match(/^architectures:\s*\[([^\]]+)\]/m)||[])[1]?.split(',').map(x=>x.trim())||[];
+  if(id!==item.id||!name||!version||!architectures.length)throw new Error(`Invalid adapter manifest: ${item.id}`);
+  const releases=await github(`https://api.github.com/repos/${item.repository}/releases?per_page=20`);
+  const release=releases.find(x=>!x.draft);
+  const assetName=`${item.id}-${version}.tar.gz`;
+  const asset=release?.assets?.find(x=>x.name===assetName);
+  const sha256=asset?.digest?.match(/^sha256:([a-f0-9]{64})$/i)?.[1]?.toLowerCase();
+  if(!release||!asset||!sha256)throw new Error(`No verified adapter release asset: ${item.id}`);
+  const idx=apps.findIndex(app=>app.id===id);
+  if(idx>=0)apps.splice(idx,1);
+  apps.push({id,name,version,type,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures,description:item.description||'',terminal:null});
+}
 apps.sort((a,b)=>a.id.localeCompare(b.id));
 await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:new Date().toISOString(),apps},null,2)+'\n');
 console.log(`indexed ${apps.length} applications`);

@@ -1,6 +1,6 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T13:49:31.410Z",
+  "generated_at": "2026-10-27T14:06:40.533Z",
   "apps": [
     {
       "id": "keenplay-3x-ui",
@@ -47,22 +47,18 @@
     {
       "id": "keenplay-s-ui",
       "name": "S-UI for Keenetic",
-      "version": "0.1.0",
+      "version": "1.6.6",
       "type": "hybrid",
-      "package_name": null,
-      "repository": "https://github.com/tommilevs/keenplay-s-ui",
-      "release": "v0.1.0-beta.1",
-      "release_url": "https://github.com/tommilevs/keenplay-s-ui/releases/tag/v0.1.0-beta.1",
-      "package_url": "https://github.com/tommilevs/keenplay-s-ui/releases/download/v0.1.0-beta.1/playkeen-s-ui-0.1.0-beta.1.tar.gz",
-      "sha256": "4d041b218df14134c0211dba5a8a43de3d18be33351ab919195d4a118df6dc53",
+      "repository": "https://github.com/tommilevs/keenplay-adapters",
+      "release": "v1.6.6",
+      "release_url": "https://github.com/tommilevs/keenplay-adapters/releases/tag/v1.6.6",
+      "package_url": "https://github.com/tommilevs/keenplay-adapters/releases/download/v1.6.6/keenplay-s-ui-1.6.6.tar.gz",
+      "sha256": "a0ce3835b31b37439737121a517e641eaa730126082c3913c0cb85f941a54ba0",
       "architectures": [
         "arm64"
       ],
-      "description": "Playkeen beta adapter for keenplay-s-ui",
-      "terminal": {
-        "enabled": true,
-        "provider": "ttyd"
-      }
+      "description": "KeenPlay adapter and migration for existing S-UI on Keenetic",
+      "terminal": null
     },
     {
       "id": "nfqws2-keenetic",
