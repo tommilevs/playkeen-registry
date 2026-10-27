@@ -18,10 +18,16 @@ for(const repo of repos){
     const name=(text.match(/^name:\s*(.+)$/m)||[])[1]?.trim();
     const architectures=(text.match(/^architectures:\s*\[([^\]]+)\]/m)||[])[1]?.split(',').map(x=>x.trim())||[];
     if(!id||!name||!architectures.length) continue;
-    apps.push({id,name,repository:repo.html_url,release:release.tag_name,release_url:release.html_url,architectures,description:repo.description||''});
+    const archive=release.assets?.find(x=>/\.(tar\.gz|tgz|zip)$/i.test(x.name));
+    const checksum=release.assets?.find(x=>/(sha256|sha256sum|\.sha256)$/i.test(x.name));
+    let sha256;
+    if (checksum) {
+      const checksumText=await (await fetch(checksum.browser_download_url,{headers})).text();
+      sha256=(checksumText.match(/[a-f0-9]{64}/i)||[])[0]?.toLowerCase();
+    }
+    apps.push({id,name,repository:repo.html_url,release:release.tag_name,release_url:release.html_url,package_url:archive?.browser_download_url||null,sha256:sha256||null,architectures,description:repo.description||''});
   } catch (error) { console.error(`skip ${repo.full_name}: ${error.message}`); }
 }
 apps.sort((a,b)=>a.id.localeCompare(b.id));
 await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:new Date().toISOString(),apps},null,2)+'\n');
 console.log(`indexed ${apps.length} applications`);
-
