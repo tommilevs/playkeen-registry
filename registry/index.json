@@ -1,10 +1,31 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T09:44:56.905Z",
+  "generated_at": "2026-10-27T09:45:33.087Z",
   "apps": [
+    {
+      "id": "keenplay-3x-ui",
+      "name": "3X-UI for Keenetic",
+      "type": "hybrid",
+      "package_name": null,
+      "repository": "https://github.com/tommilevs/keenplay-3x-ui",
+      "release": "v0.1.0-beta.1",
+      "release_url": "https://github.com/tommilevs/keenplay-3x-ui/releases/tag/v0.1.0-beta.1",
+      "package_url": "https://github.com/tommilevs/keenplay-3x-ui/releases/download/v0.1.0-beta.1/playkeen-3x-ui-0.1.0-beta.1.tar.gz",
+      "sha256": "b81cde1336ba04bd8cf01b658a4ac5351b7cf7b7ba30a3c5acb03d7c0d1482f2",
+      "architectures": [
+        "arm64"
+      ],
+      "description": "Playkeen beta adapter for keenplay-3x-ui",
+      "terminal": {
+        "enabled": true,
+        "provider": "ttyd"
+      }
+    },
     {
       "id": "keenplay-demo",
       "name": "KeenPlay Demo",
+      "type": "bash",
+      "package_name": null,
       "repository": "https://github.com/tommilevs/keenplay-demo",
       "release": "v0.1.1",
       "release_url": "https://github.com/tommilevs/keenplay-demo/releases/tag/v0.1.1",
@@ -15,7 +36,30 @@
         "armv7",
         "amd64"
       ],
-      "description": "Reference Playkeen application for Entware and Keenetic"
+      "description": "Reference Playkeen application for Entware and Keenetic",
+      "terminal": {
+        "enabled": true,
+        "provider": "ttyd"
+      }
+    },
+    {
+      "id": "keenplay-s-ui",
+      "name": "S-UI for Keenetic",
+      "type": "hybrid",
+      "package_name": null,
+      "repository": "https://github.com/tommilevs/keenplay-s-ui",
+      "release": "v0.1.0-beta.1",
+      "release_url": "https://github.com/tommilevs/keenplay-s-ui/releases/tag/v0.1.0-beta.1",
+      "package_url": "https://github.com/tommilevs/keenplay-s-ui/releases/download/v0.1.0-beta.1/playkeen-s-ui-0.1.0-beta.1.tar.gz",
+      "sha256": "4d041b218df14134c0211dba5a8a43de3d18be33351ab919195d4a118df6dc53",
+      "architectures": [
+        "arm64"
+      ],
+      "description": "Playkeen beta adapter for keenplay-s-ui",
+      "terminal": {
+        "enabled": true,
+        "provider": "ttyd"
+      }
     }
   ]
 }
