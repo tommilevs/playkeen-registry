@@ -33,6 +33,18 @@ for(const repo of repos){
     apps.push({id,name,version,type,package_name:packageName,repository:repo.html_url,release:release.tag_name,release_url:release.html_url,package_url:archive?.browser_download_url||null,sha256:sha256||null,architectures,description:repo.description||'',terminal:terminalEnabled?{enabled:true,provider:(text.match(/^\s+provider:\s*(\S+)/m)||[])[1]||'ttyd'}:null});
   } catch (error) { console.error(`skip ${repo.full_name}: ${error.message}`); }
 }
+const curated=JSON.parse(await fs.readFile('registry/curated.json','utf8'));
+if(curated.schema!=='playkeen/curated-v1'||!Array.isArray(curated.apps))throw new Error('Invalid curated catalog');
+for(const item of curated.apps){
+  if(!/^[a-z0-9][a-z0-9._-]*$/.test(item.id)||!/^[\w.-]+\/[\w.-]+$/.test(item.repository)||!item.package_name||!item.asset_suffix||!Array.isArray(item.architectures)||!item.architectures.length)throw new Error(`Invalid curated package: ${item.id}`);
+  if(apps.some(app=>app.id===item.id))throw new Error(`Duplicate application id: ${item.id}`);
+  const releases=await github(`https://api.github.com/repos/${item.repository}/releases?per_page=20`);
+  const release=releases.find(x=>!x.draft&&!x.prerelease);
+  const asset=release?.assets?.find(x=>x.name.endsWith(item.asset_suffix));
+  const sha256=asset?.digest?.match(/^sha256:([a-f0-9]{64})$/i)?.[1]?.toLowerCase();
+  if(!release||!asset||!sha256||!asset.browser_download_url?.startsWith(`https://github.com/${item.repository}/releases/download/`))throw new Error(`No verified release asset for ${item.id}`);
+  apps.push({id:item.id,name:item.name,version:release.tag_name.replace(/^v/i,''),type:'opkg',package_name:item.package_name,repository:`https://github.com/${item.repository}`,release:release.tag_name,release_url:release.html_url,package_url:asset.browser_download_url,sha256,architectures:item.architectures,description:item.description||'',terminal:null});
+}
 apps.sort((a,b)=>a.id.localeCompare(b.id));
 await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:new Date().toISOString(),apps},null,2)+'\n');
 console.log(`indexed ${apps.length} applications`);

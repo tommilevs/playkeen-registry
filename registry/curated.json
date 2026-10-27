@@ -1,0 +1,14 @@
+{
+  "schema": "playkeen/curated-v1",
+  "apps": [
+    {
+      "id": "nfqws2-keenetic",
+      "name": "NFQWS2 for Keenetic",
+      "repository": "nfqws/nfqws2-keenetic",
+      "package_name": "nfqws2-keenetic",
+      "asset_suffix": "_all_entware.ipk",
+      "architectures": ["arm64", "arm", "armv7", "amd64", "mips", "mipsel", "mips64", "x86", "x86_64"],
+      "description": "Official NFQWS2 Entware package for Keenetic and compatible routers"
+    }
+  ]
+}
