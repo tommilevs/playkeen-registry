@@ -1,10 +1,11 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-27T09:45:33.087Z",
+  "generated_at": "2026-10-27T09:46:42.277Z",
   "apps": [
     {
       "id": "keenplay-3x-ui",
       "name": "3X-UI for Keenetic",
+      "version": "0.1.0",
       "type": "hybrid",
       "package_name": null,
       "repository": "https://github.com/tommilevs/keenplay-3x-ui",
@@ -24,6 +25,7 @@
     {
       "id": "keenplay-demo",
       "name": "KeenPlay Demo",
+      "version": "0.1.0",
       "type": "bash",
       "package_name": null,
       "repository": "https://github.com/tommilevs/keenplay-demo",
@@ -45,6 +47,7 @@
     {
       "id": "keenplay-s-ui",
       "name": "S-UI for Keenetic",
+      "version": "0.1.0",
       "type": "hybrid",
       "package_name": null,
       "repository": "https://github.com/tommilevs/keenplay-s-ui",
