@@ -9,6 +9,15 @@
       "asset_suffix": "_all_entware.ipk",
       "architectures": ["arm64", "arm", "armv7", "amd64", "mips", "mipsel", "mips64", "x86", "x86_64"],
       "description": "Official NFQWS2 Entware package for Keenetic and compatible routers"
+    },
+    {
+      "id": "nfqws-keenetic-web",
+      "name": "NFQWS Web UI for Keenetic",
+      "repository": "nfqws/nfqws-keenetic-web",
+      "package_name": "nfqws-keenetic-web",
+      "asset_suffix": "_all_entware.ipk",
+      "architectures": ["arm64", "arm", "armv7", "amd64", "mips", "mipsel", "mips64", "x86", "x86_64"],
+      "description": "Official web interface for nfqws and nfqws2 on Entware routers"
     }
   ]
 }
