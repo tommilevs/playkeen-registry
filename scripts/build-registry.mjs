@@ -2,15 +2,16 @@ import fs from 'node:fs/promises';
 import {ENTWARE_FEEDS,loadEntwarePackages,markVerified} from './entware-feed.mjs';
 
 const token = process.env.GITHUB_TOKEN;
-const headers = {'User-Agent':'playkeen-registry-bot','Accept':'application/vnd.github+json'};
+const headers = {'User-Agent':'unixplay-registry-bot','Accept':'application/vnd.github+json'};
 if (token) headers.Authorization = `Bearer ${token}`;
 async function github(url){const r=await fetch(url,{headers});if(!r.ok)throw new Error(`${r.status} ${url}`);return r.json();}
-const query = process.env.PLAYKEEN_GITHUB_QUERY || 'keenplay- in:name';
+const query = process.env.UNIXPLAY_GITHUB_QUERY || process.env.PLAYKEEN_GITHUB_QUERY || 'unixplay- in:name';
 const repos = (await github(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&per_page=100`)).items || [];
 const apps=[];
 for(const repo of repos){
   try {
-    const manifestResponse=await fetch(`https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/playkeen.yaml`,{headers});
+    let manifestResponse=await fetch(`https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/unixplay.yaml`,{headers});
+    if(manifestResponse.status===404)manifestResponse=await fetch(`https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/playkeen.yaml`,{headers});
     if(!manifestResponse.ok) continue;
     const releases=(await github(`https://api.github.com/repos/${repo.full_name}/releases?per_page=20`).catch(()=>[]));
     const release=(releases.find(item=>!item.draft)||null);
@@ -49,7 +50,7 @@ for(const item of curated.apps){
 const adapters=JSON.parse(await fs.readFile('registry/adapters.json','utf8').catch(()=>'{"schema":"playkeen/adapters-v1","apps":[]}'));
 if(adapters.schema!=='playkeen/adapters-v1'||!Array.isArray(adapters.apps))throw new Error('Invalid adapter catalog');
 for(const item of adapters.apps){
-  if(!/^[a-z0-9][a-z0-9._-]*$/.test(item.id)||!/^[\w.-]+\/[\w.-]+$/.test(item.repository)||!/^apps\/[\w./-]+\/playkeen\.yaml$/.test(item.manifest_path)||!Array.isArray(item.architectures)||!item.architectures.length)throw new Error(`Invalid adapter: ${item.id}`);
+  if(!/^[a-z0-9][a-z0-9._-]*$/.test(item.id)||!/^[\w.-]+\/[\w.-]+$/.test(item.repository)||!/^apps\/[\w./-]+\/(?:unixplay|playkeen)\.yaml$/.test(item.manifest_path)||!Array.isArray(item.architectures)||!item.architectures.length)throw new Error(`Invalid adapter: ${item.id}`);
   const manifestResponse=await fetch(`https://raw.githubusercontent.com/${item.repository}/main/${item.manifest_path}`,{headers});
   if(!manifestResponse.ok)throw new Error(`Adapter manifest unavailable: ${item.id}`);
   const text=await manifestResponse.text();

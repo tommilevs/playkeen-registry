@@ -1,2 +1,35 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","required":["schema","id","name","version","type","architectures"],"properties":{"schema":{"const":"playkeen/v1"},"id":{"type":"string","pattern":"^[a-z0-9][a-z0-9-]{1,63}$"},"type":{"enum":["bash","opkg","hybrid"]},"architectures":{"type":"array","minItems":1}}}
-
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "version",
+    "type",
+    "architectures"
+  ],
+  "properties": {
+    "schema": {
+      "enum": [
+        "unixplay/v1",
+        "playkeen/v1"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,63}$"
+    },
+    "type": {
+      "enum": [
+        "bash",
+        "opkg",
+        "hybrid"
+      ]
+    },
+    "architectures": {
+      "type": "array",
+      "minItems": 1
+    }
+  }
+}

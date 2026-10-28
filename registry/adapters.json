@@ -4,7 +4,7 @@
     {
       "id": "keenplay-s-ui",
       "repository": "tommilevs/unixplay-adapters",
-      "manifest_path": "apps/keenplay-s-ui/playkeen.yaml",
+      "manifest_path": "apps/keenplay-s-ui/unixplay.yaml",
       "architectures": ["arm64"],
       "description": "Unixplay adapter and migration for existing S-UI on Keenetic"
     }
