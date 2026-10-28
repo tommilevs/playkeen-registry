@@ -1,6 +1,6 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-28T06:23:40.513Z",
+  "generated_at": "2026-10-28T12:55:51.883Z",
   "apps": [
     {
       "id": "keenplay-3x-ui",
@@ -16,7 +16,7 @@
       "architectures": [
         "arm64"
       ],
-      "description": "Playkeen beta adapter for keenplay-3x-ui",
+      "description": "Unixplay beta adapter for Unixplay-3x-ui",
       "terminal": {
         "enabled": true,
         "provider": "ttyd"
@@ -38,7 +38,7 @@
         "armv7",
         "amd64"
       ],
-      "description": "Reference Playkeen application for Entware and Keenetic",
+      "description": "Reference Unixplay application for Entware and Keenetic",
       "terminal": {
         "enabled": true,
         "provider": "ttyd"
