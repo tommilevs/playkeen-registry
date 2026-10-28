@@ -13,14 +13,14 @@ test('indexes curated upstream opkg release with its verified asset digest',asyn
   try {
     await fs.mkdir(path.join(tmp,'registry'));
     await fs.writeFile(path.join(tmp,'registry','curated.json'),JSON.stringify({schema:'playkeen/curated-v1',apps:[{id:'nfqws2-keenetic',name:'NFQWS2',repository:'nfqws/nfqws2-keenetic',package_name:'nfqws2-keenetic',asset_suffix:'_all_entware.ipk',architectures:['arm64'],description:'Native opkg package'}]}));
-    await fs.writeFile(path.join(tmp,'registry','adapters.json'),JSON.stringify({schema:'playkeen/adapters-v1',apps:[{id:'keenplay-s-ui',repository:'tommilevs/keenplay-adapters',manifest_path:'apps/keenplay-s-ui/playkeen.yaml',architectures:['arm64'],description:'S-UI migration adapter'}]}));
+    await fs.writeFile(path.join(tmp,'registry','adapters.json'),JSON.stringify({schema:'playkeen/adapters-v1',apps:[{id:'keenplay-s-ui',repository:'tommilevs/unixplay-adapters',manifest_path:'apps/keenplay-s-ui/playkeen.yaml',architectures:['arm64'],description:'S-UI migration adapter'}]}));
     globalThis.fetch=async url=>{
       const target=String(url);
       if(target.endsWith('/Packages.gz')){const bytes=gzipSync('Package: nfqws2-keenetic\nVersion: 1.3.2-1\nArchitecture: aarch64-3.10\nFilename: nfqws2-keenetic_1.3.2-1_aarch64.ipk\nSection: net\nDescription: Curated package\n\nPackage: curl\nVersion: 8.1-1\nArchitecture: aarch64-3.10\nFilename: curl_8.1-1_aarch64.ipk\nSection: net\nDescription: Transfer URLs\n');return {ok:true,arrayBuffer:async()=>bytes};}
       if(target.includes('/search/repositories'))return {ok:true,json:async()=>({items:[]})};
       if(target.includes('/repos/nfqws/nfqws2-keenetic/releases'))return {ok:true,json:async()=>[{draft:false,prerelease:false,tag_name:'v1.3.2',html_url:'https://github.com/nfqws/nfqws2-keenetic/releases/tag/v1.3.2',assets:[{name:'nfqws2-keenetic_1.3.2_all_entware.ipk',browser_download_url:'https://github.com/nfqws/nfqws2-keenetic/releases/download/v1.3.2/nfqws2-keenetic_1.3.2_all_entware.ipk',digest:`sha256:${'a'.repeat(64)}`}]}]};
-      if(target.includes('/tommilevs/keenplay-adapters/main/apps/keenplay-s-ui/playkeen.yaml'))return {ok:true,text:async()=>'schema: playkeen/v1\nid: keenplay-s-ui\nname: S-UI for Keenetic\nversion: 1.6.6\ntype: hybrid\narchitectures: [arm64]\n'};
-      if(target.includes('/repos/tommilevs/keenplay-adapters/releases'))return {ok:true,json:async()=>[{draft:false,tag_name:'v1.6.6',html_url:'https://github.com/tommilevs/keenplay-adapters/releases/tag/v1.6.6',assets:[{name:'keenplay-s-ui-1.6.6.tar.gz',browser_download_url:'https://github.com/tommilevs/keenplay-adapters/releases/download/v1.6.6/keenplay-s-ui-1.6.6.tar.gz',digest:`sha256:${'b'.repeat(64)}`}]}]};
+      if(target.includes('/tommilevs/unixplay-adapters/main/apps/keenplay-s-ui/playkeen.yaml'))return {ok:true,text:async()=>'schema: playkeen/v1\nid: keenplay-s-ui\nname: S-UI for Keenetic\nversion: 1.6.6\ntype: hybrid\narchitectures: [arm64]\n'};
+      if(target.includes('/repos/tommilevs/unixplay-adapters/releases'))return {ok:true,json:async()=>[{draft:false,tag_name:'v1.6.6',html_url:'https://github.com/tommilevs/unixplay-adapters/releases/tag/v1.6.6',assets:[{name:'keenplay-s-ui-1.6.6.tar.gz',browser_download_url:'https://github.com/tommilevs/unixplay-adapters/releases/download/v1.6.6/keenplay-s-ui-1.6.6.tar.gz',digest:`sha256:${'b'.repeat(64)}`}]}]};
       throw new Error(`Unexpected request: ${target}`);
     };
     process.chdir(tmp);await import(script);

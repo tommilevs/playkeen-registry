@@ -1,4 +1,4 @@
-name: Validate and refresh Playkeen registry
+name: Validate and refresh Unixplay registry
 concurrency:
   group: playkeen-registry-refresh
   cancel-in-progress: true

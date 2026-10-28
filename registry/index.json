@@ -8,15 +8,15 @@
       "version": "0.1.0",
       "type": "hybrid",
       "package_name": null,
-      "repository": "https://github.com/tommilevs/keenplay-3x-ui",
+      "repository": "https://github.com/tommilevs/unixplay-3x-ui",
       "release": "v0.1.0-beta.1",
-      "release_url": "https://github.com/tommilevs/keenplay-3x-ui/releases/tag/v0.1.0-beta.1",
-      "package_url": "https://github.com/tommilevs/keenplay-3x-ui/releases/download/v0.1.0-beta.1/playkeen-3x-ui-0.1.0-beta.1.tar.gz",
+      "release_url": "https://github.com/tommilevs/unixplay-3x-ui/releases/tag/v0.1.0-beta.1",
+      "package_url": "https://github.com/tommilevs/unixplay-3x-ui/releases/download/v0.1.0-beta.1/playkeen-3x-ui-0.1.0-beta.1.tar.gz",
       "sha256": "b81cde1336ba04bd8cf01b658a4ac5351b7cf7b7ba30a3c5acb03d7c0d1482f2",
       "architectures": [
         "arm64"
       ],
-      "description": "Playkeen beta adapter for keenplay-3x-ui",
+      "description": "Unixplay beta adapter for keenplay-3x-ui",
       "terminal": {
         "enabled": true,
         "provider": "ttyd"
@@ -24,21 +24,21 @@
     },
     {
       "id": "keenplay-demo",
-      "name": "KeenPlay Demo",
+      "name": "Unixplay Demo",
       "version": "0.1.0",
       "type": "bash",
       "package_name": null,
-      "repository": "https://github.com/tommilevs/keenplay-demo",
+      "repository": "https://github.com/tommilevs/unixplay-demo",
       "release": "v0.1.1",
-      "release_url": "https://github.com/tommilevs/keenplay-demo/releases/tag/v0.1.1",
-      "package_url": "https://github.com/tommilevs/keenplay-demo/releases/download/v0.1.1/keenplay-demo-v0.1.0.tar.gz",
+      "release_url": "https://github.com/tommilevs/unixplay-demo/releases/tag/v0.1.1",
+      "package_url": "https://github.com/tommilevs/unixplay-demo/releases/download/v0.1.1/keenplay-demo-v0.1.0.tar.gz",
       "sha256": "80b5ed34a5c610c892e1e86537eea881d435edd7a6332aa10f0db0e5967d1922",
       "architectures": [
         "arm64",
         "armv7",
         "amd64"
       ],
-      "description": "Reference Playkeen application for Entware and Keenetic",
+      "description": "Reference Unixplay application for Entware and Keenetic",
       "terminal": {
         "enabled": true,
         "provider": "ttyd"
@@ -49,15 +49,15 @@
       "name": "S-UI for Keenetic",
       "version": "1.6.6",
       "type": "hybrid",
-      "repository": "https://github.com/tommilevs/keenplay-adapters",
+      "repository": "https://github.com/tommilevs/unixplay-adapters",
       "release": "v1.6.6",
-      "release_url": "https://github.com/tommilevs/keenplay-adapters/releases/tag/v1.6.6",
-      "package_url": "https://github.com/tommilevs/keenplay-adapters/releases/download/v1.6.6/keenplay-s-ui-1.6.6.tar.gz",
+      "release_url": "https://github.com/tommilevs/unixplay-adapters/releases/tag/v1.6.6",
+      "package_url": "https://github.com/tommilevs/unixplay-adapters/releases/download/v1.6.6/keenplay-s-ui-1.6.6.tar.gz",
       "sha256": "a0ce3835b31b37439737121a517e641eaa730126082c3913c0cb85f941a54ba0",
       "architectures": [
         "arm64"
       ],
-      "description": "KeenPlay adapter and migration for existing S-UI on Keenetic",
+      "description": "Unixplay adapter and migration for existing S-UI on Keenetic",
       "terminal": null
     },
     {
@@ -119,49 +119,49 @@
     {
       "feed": "aarch64-k3.10",
       "architecture": "arm64",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/aarch64-k3.10.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/aarch64-k3.10.json",
       "count": 2886
     },
     {
       "feed": "armv5sf-k3.2",
       "architecture": "arm",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv5sf-k3.2.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/armv5sf-k3.2.json",
       "count": 2810
     },
     {
       "feed": "armv7sf-k2.6",
       "architecture": "armv7-k2.6",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv7sf-k2.6.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/armv7sf-k2.6.json",
       "count": 2831
     },
     {
       "feed": "armv7sf-k3.2",
       "architecture": "armv7-k3.2",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/armv7sf-k3.2.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/armv7sf-k3.2.json",
       "count": 2949
     },
     {
       "feed": "mipselsf-k3.4",
       "architecture": "mipsel",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/mipselsf-k3.4.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/mipselsf-k3.4.json",
       "count": 2883
     },
     {
       "feed": "mipssf-k3.4",
       "architecture": "mips",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/mipssf-k3.4.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/mipssf-k3.4.json",
       "count": 2882
     },
     {
       "feed": "x64-k3.2",
       "architecture": "amd64",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/x64-k3.2.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/x64-k3.2.json",
       "count": 2886
     },
     {
       "feed": "x86-k2.6",
       "architecture": "x86",
-      "url": "https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/x86-k2.6.json",
+      "url": "https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/x86-k2.6.json",
       "count": 2793
     }
   ]

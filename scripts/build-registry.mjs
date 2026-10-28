@@ -77,7 +77,7 @@ const opkgFeeds=[];
 for(const [feed,architecture] of ENTWARE_FEEDS){
   const packages=opkgPackages.filter(pkg=>pkg.feed===feed).sort((a,b)=>a.name.localeCompare(b.name));
   await fs.writeFile(`registry/entware/${feed}.json`,JSON.stringify({schema:'playkeen/entware-feed-v1',generated_at:generatedAt,feed,packages},null,2)+'\n');
-  opkgFeeds.push({feed,architecture,url:`https://raw.githubusercontent.com/tommilevs/playkeen-registry/main/registry/entware/${feed}.json`,count:packages.length});
+  opkgFeeds.push({feed,architecture,url:`https://raw.githubusercontent.com/tommilevs/unixplay-registry/main/registry/entware/${feed}.json`,count:packages.length});
 }
 await fs.writeFile('registry/index.json',JSON.stringify({schema:'playkeen/registry-v1',generated_at:generatedAt,apps,opkg_feeds:opkgFeeds},null,2)+'\n');
 console.log(`indexed ${apps.length} applications and ${opkgPackages.length} Entware packages in ${opkgFeeds.length} feeds`);
