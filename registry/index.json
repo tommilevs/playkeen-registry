@@ -1,7 +1,49 @@
 {
   "schema": "playkeen/registry-v1",
-  "generated_at": "2026-10-28T06:16:43.962Z",
+  "generated_at": "2026-10-28T05:43:28.398Z",
   "apps": [
+    {
+      "id": "keenplay-3x-ui",
+      "name": "3X-UI for Keenetic",
+      "version": "0.1.0",
+      "type": "hybrid",
+      "package_name": null,
+      "repository": "https://github.com/tommilevs/unixplay-3x-ui",
+      "release": "v0.1.0-beta.1",
+      "release_url": "https://github.com/tommilevs/unixplay-3x-ui/releases/tag/v0.1.0-beta.1",
+      "package_url": "https://github.com/tommilevs/unixplay-3x-ui/releases/download/v0.1.0-beta.1/playkeen-3x-ui-0.1.0-beta.1.tar.gz",
+      "sha256": "b81cde1336ba04bd8cf01b658a4ac5351b7cf7b7ba30a3c5acb03d7c0d1482f2",
+      "architectures": [
+        "arm64"
+      ],
+      "description": "Unixplay beta adapter for keenplay-3x-ui",
+      "terminal": {
+        "enabled": true,
+        "provider": "ttyd"
+      }
+    },
+    {
+      "id": "keenplay-demo",
+      "name": "Unixplay Demo",
+      "version": "0.1.0",
+      "type": "bash",
+      "package_name": null,
+      "repository": "https://github.com/tommilevs/unixplay-demo",
+      "release": "v0.1.1",
+      "release_url": "https://github.com/tommilevs/unixplay-demo/releases/tag/v0.1.1",
+      "package_url": "https://github.com/tommilevs/unixplay-demo/releases/download/v0.1.1/keenplay-demo-v0.1.0.tar.gz",
+      "sha256": "80b5ed34a5c610c892e1e86537eea881d435edd7a6332aa10f0db0e5967d1922",
+      "architectures": [
+        "arm64",
+        "armv7",
+        "amd64"
+      ],
+      "description": "Reference Unixplay application for Entware and Keenetic",
+      "terminal": {
+        "enabled": true,
+        "provider": "ttyd"
+      }
+    },
     {
       "id": "keenplay-s-ui",
       "name": "S-UI for Keenetic",
